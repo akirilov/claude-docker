@@ -1,4 +1,5 @@
 secrets.env
-in/**
-!in/instructions-example.md
+in/*
+!in/example/
 out
+archive

@@ -4,13 +4,14 @@ INPUT_FOLDER="/home/ubuntu/in"
 CLAUDE="/home/ubuntu/.local/bin/claude"
 INSTRUCTION_FILE="instructions.md"
 
+RUN_INPUT="./in/n8n"
+
 
 docker run \
   --rm \
   -it \
   -v ./out:$OUTPUT_FOLDER \
-  -v ./in:$INPUT_FOLDER:ro \
+  -v $RUN_INPUT:$INPUT_FOLDER:ro \
   --env-file ./secrets.env \
   $IMAGE_NAME \
-  bash -c "$CLAUDE --dangerously-skip-permissions"
-#  bash -c "$CLAUDE --dangerously-skip-permissions -p --verbose < $UTILS_FOLDER/$INSTRUCTION_FILE &> $OUTPUT_FOLDER/claude.log"
+  bash -c "$CLAUDE --dangerously-skip-permissions -p --verbose < $INPUT_FOLDER/$INSTRUCTION_FILE &> $OUTPUT_FOLDER/claude.log"
