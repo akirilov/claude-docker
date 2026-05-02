@@ -13,7 +13,7 @@ USER ubuntu
 WORKDIR /home/ubuntu
 
 RUN curl -fsSL https://claude.ai/install.sh | bash
-COPY settings.json .claude/settings.json
+#COPY settings.json .claude/settings.json
 RUN echo 'PATH=~/.local/bin:$PATH' >> .bashrc
 
 CMD ["bash"]
