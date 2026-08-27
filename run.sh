@@ -1,8 +1,34 @@
+usage() {
+  echo "Usage: $0 <target>"
+  echo "Arguments:"
+  echo "  -i   Run in interactive mode"
+  echo "  -v   Run verbose"
+  exit 1
+}
+
+INTERACTIVE=false
+VERBOSE=false
+
+while getopts ":iv" opt; do
+  case ${opt} in
+    i)
+      INTERACTIVE=true
+      ;;
+    v)
+      VERBOSE=true
+      ;;
+    *)
+      usage
+      ;;
+  esac
+done
+
+shift $((OPTIND -1))
+
 #!/bin/bash
 if [ -z "$1" ]; then
-    echo "Error: No argument provided."
-    echo "Usage: $0 <target>"
-    exit 1
+  echo "Error: No argument provided."
+  usage
 fi
 
 # CHANGE THIS
@@ -18,6 +44,17 @@ TARGET="$1"
 INPUT="./in/$TARGET"
 OUTPUT="./out/$TARGET-$(uuidgen)"
 
+OPTS_INTERACTIVE=""
+OPTS_VERBOSE=""
+if ! $INTERACTIVE; then
+  OPTS_INTERACTIVE="-p \
+                    < $INSTRUCTION_FILE \
+                    &> $OUT_FOLDER_CONTAINER/claude.log"
+fi
+if $VERBOSE; then
+  OPTS_VERBOSE="--verbose --output-format stream-json"
+fi
+
 mkdir $OUTPUT
 
 docker run \
@@ -31,6 +68,5 @@ docker run \
     --dangerously-skip-permissions \
     --effort $EFFORT \
     --model $MODEL \
-    -p --verbose --output-format stream-json \
-    < $INSTRUCTION_FILE \
-    &> $OUT_FOLDER_CONTAINER/claude.log"
+    $OPTS_VERBOSE \
+    $OPTS_INTERACTIVE"
