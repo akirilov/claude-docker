@@ -31,10 +31,6 @@ if [ -z "$1" ]; then
   usage
 fi
 
-# CHANGE THIS
-EFFORT="xhigh"
-MODEL="opus"
-
 IMAGE_NAME="claude-docker"
 OUT_FOLDER_CONTAINER="/home/ubuntu/out"
 IN_FOLDER_CONTAINER="/home/ubuntu/in"
