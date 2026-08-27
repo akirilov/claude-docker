@@ -1,4 +1,5 @@
 secrets.env
+settings.json
 in/*
 !in/example/
 out
