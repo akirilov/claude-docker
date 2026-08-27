@@ -39,10 +39,13 @@ IMAGE_NAME="claude-docker"
 OUT_FOLDER_CONTAINER="/home/ubuntu/out"
 IN_FOLDER_CONTAINER="/home/ubuntu/in"
 CLAUDE="/home/ubuntu/.local/bin/claude"
+CLAUDE_SETTINGS="/home/ubuntu/.claude/settings.json"
+
 INSTRUCTION_FILE="${IN_FOLDER_CONTAINER%/}/instructions.md"
 TARGET="$1"
 INPUT="./in/$TARGET"
 OUTPUT="./out/$TARGET-$(uuidgen)"
+SETTINGS="./settings.json"
 
 OPTS_INTERACTIVE=""
 OPTS_VERBOSE=""
@@ -62,6 +65,7 @@ docker run \
   -it \
   -v $OUTPUT:$OUT_FOLDER_CONTAINER \
   -v $INPUT:$IN_FOLDER_CONTAINER:ro \
+  -v $SETTINGS:$CLAUDE_SETTINGS:ro \
   --env-file ./secrets.env \
   $IMAGE_NAME \
   bash -c "$CLAUDE \
