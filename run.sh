@@ -66,7 +66,5 @@ docker run \
   $IMAGE_NAME \
   bash -c "$CLAUDE \
     --dangerously-skip-permissions \
-    --effort $EFFORT \
-    --model $MODEL \
     $OPTS_VERBOSE \
     $OPTS_INTERACTIVE"
