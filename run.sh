@@ -65,6 +65,5 @@ docker run \
   --env-file ./secrets.env \
   $IMAGE_NAME \
   bash -c "$CLAUDE \
-    --dangerously-skip-permissions \
     $OPTS_VERBOSE \
     $OPTS_INTERACTIVE"

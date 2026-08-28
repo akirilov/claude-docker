@@ -1,2 +1,4 @@
 {
+  "defaultMode": "bypassPermissions",
+  "includeCoAuthoredBy": false
 }
